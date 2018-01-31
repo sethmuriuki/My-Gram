@@ -5,7 +5,7 @@ class Images(models.Model):
     image = models.ImageField(upload_to = 'photos/', null = True)
     name = models.CharField(max_length=30)
     caption = models.TextField()
-    profile = models.ManyToManyField(profile)
+    # profile = models.ManyToManyField(profile)
     
     def save_image(self):
         self.save()
