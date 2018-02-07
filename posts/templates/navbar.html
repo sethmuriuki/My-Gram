@@ -8,15 +8,49 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'myGram' %}">My Gram</a>
+    <!-- navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding:5px">
+
+        <div class="container">
+
+            <h1 class="logo">
+                <a href="/"><img src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" alt="" style="width:35px">
+                </a>|
+            </h1>
+            <div class="logoname" style="display:inline">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" alt="" style="width:135px">
             </div>
+            <ul class="nav nav-right">
+                <form class="form-group" action="{% url 'findProfile' %}" method="post" style="padding: 8px; text-align: center;border-radius: 8px;border: 2px solid #ddd;outline: 0;margin-right:400px; display:inline" role="search">
+                    {% csrf_token %}
+                    <input type="text" name="images" placeholder="Search" style="border:none; padding:10px; background-color:inherit">
+                </form>
+                {% if user.is_authenticated %}
+                <div class="iconns" style="font-size:40px; display:inline">
+                    <a href="{% url 'newStatus' user.username %}">
+                        <i class="material-icons" style="font-size:40px">add</i>
+                    </a>
+                    <a href="{% url 'myProfile' %}">
+                        <i class="material-icons" style="font-size:40px">perm_identity</i>
+                    </a>
+                    <a href="/logout">
+                        <i class="material-icons" style="font-size:40px">lock_open</i>
+                    </a>
+            </ul>
+            {% else %}
+            <li>
+                <a href="/accounts/login"><i class="material-icons" style="font-size:40px">lock_outline</i></a>
+            </li>
 
+            {% endif %}
 
+            </div>
+            </ul>
         </div>
+        <!--/.container-->
+
     </nav>
+    <!--/.navbar-->
 </body>
 
 </html>
