@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %} {% load bootstrap3 %} {% load staticfiles %}
+<form method="post" enctype="multipart/form-data" style="margin-top:300px;">
+    {% csrf_token %} {% bootstrap_form form%}
+    <input type="submit" class="btn btn-primary btn-sm" value="Submit">
+    <input type="hidden" name="next" value="{{next}}">
+
+</form>
+
+{% endblock %}

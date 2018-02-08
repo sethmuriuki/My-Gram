@@ -20,7 +20,7 @@
                     <a href="{% url 'singleImageLike' image.id%}">
                         <i class="material-icons">favorite_border</i>
                     </a>
-                    <a href="{% url 'newComment' image.user.username %}">
+                    <a href="">
                         <i class="material-icons" style="margin-left:10px">chat_bubble_outline</i>
                     </a>
                     <i class="material-icons" style="float:right; font-size:40px">bookmark_border</i>
@@ -77,12 +77,22 @@
                 </div>
                 <p style="margin-top:10px;font-weight:bolder; font-size:16px">{{image.likes}} Likes</p><br>
 
-                <p style="margin-top:-20px"><span style=" margin-right:10px; font-weight:bolder; font-size:16px">Kepha Okari</span>Awesome Place</p>
+                <p style="margin-top:-20px"><span style=" margin-right:10px; font-weight:bolder; font-size:16px">Seth Muriuki</span>Awesome Place</p>
                 <p style="font-size:14px;color:grey">{{image.date_uploaded|timesince}} ago</p>
                 <hr>
-                <form class="" action="" method="post">
-                    <input type="text" name="" value="" placeholder="Add a comment" style="border:none; padding:10px; width:100%">
-                </form>
+                <div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %} {% bootstrap_form form%}
+                        <input type="submit" class="btn btn-primary btn-sm" value="Submit">
+                        <input type="hidden" name="next" value="{{next}}">
+
+                    </form>
+                    <hr>
+                    <form class="" action="" method="post" style="margin-top:200px;">
+                        <input type="text" name="" value="" placeholder="Add a comment" style="border:none; padding:10px; width:100%">
+                    </form>
+                </div>
+
             </div>
             {% endfor %}
         </div>

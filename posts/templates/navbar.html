@@ -14,13 +14,15 @@
         <div class="container">
 
             <h1 class="logo">
-                <a href="/"><img src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" alt="" style="width:35px">
-                </a>|
+
             </h1>
             <div class="logoname" style="display:inline">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" alt="" style="width:135px">
             </div>
             <ul class="nav nav-right">
+                <a href="/"><img src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" alt="" style="width:35px">
+                </a>|
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" alt="" style="width:135px">
+
                 <form class="form-group" action="{% url 'findProfile' %}" method="post" style="padding: 8px; text-align: center;border-radius: 8px;border: 2px solid #ddd;outline: 0;margin-right:400px; display:inline" role="search">
                     {% csrf_token %}
                     <input type="text" name="images" placeholder="Search" style="border:none; padding:10px; background-color:inherit">

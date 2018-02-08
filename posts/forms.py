@@ -10,3 +10,8 @@ class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ('comment',)
+
+class ImagePost(forms.ModelForm):
+    class Meta:
+        model = Images
+        fields = ('image','name', 'caption')
