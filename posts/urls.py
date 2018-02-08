@@ -14,3 +14,6 @@ urlpatterns=[
     url(r'^new/comment/(?P<username>[-_\w.]+)$', views.new_comment, name='newComment'),
     url(r'^post/', views.post, name='post'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

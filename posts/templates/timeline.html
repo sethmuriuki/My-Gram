@@ -17,9 +17,13 @@
                     <img src="{{image.image.url}}" class="img-responsive">
                 </a>
                 <div class="like" style="font-size:30px">
+                    {% if image.likes %}
+
+                    <i class="fa fa-heart" aria-hidden="true" style="color: red"></i> {% else %}
                     <a href="{% url 'singleImageLike' image.id%}">
                         <i class="material-icons">favorite_border</i>
                     </a>
+                    {% endif %}
                     <a href="">
                         <i class="material-icons" style="margin-left:10px">chat_bubble_outline</i>
                     </a>

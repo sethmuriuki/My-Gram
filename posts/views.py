@@ -4,6 +4,7 @@ import datetime as dt
 from .forms import ImagePost, NewCommentForm, NewStatusForm
 from .models import Images, Profile, Comments
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -19,7 +20,7 @@ def timelines(request):
 @login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
-    profile = Profile.objects.get(user_id=current_user.id)
+    profile = User.objects.get(id=current_user.id)
     images = Images.objects.all().filter(profile_id=current_user.id)
     return render(request, 'profile.html', {'images':images, 'profile':profile})
 
