@@ -9,49 +9,40 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding:5px">
+    <nav class="uk-navbar-container uk-margin uk-navbar-transparent" uk-navbar="mode: click">
+        <div class="uk-navbar-left">
+            <a href="/"><img src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" alt="" style="width:35px">
+            </a> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" alt="" style="width:135px">
 
-        <div class="container">
 
-            <h1 class="logo">
-
-            </h1>
-            <div class="logoname" style="display:inline">
-            </div>
-            <ul class="nav nav-right">
-                <a href="/"><img src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" alt="" style="width:35px">
-                </a>|
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" alt="" style="width:135px">
-
-                <form class="form-group" action="{% url 'findProfile' %}" method="post" style="padding: 8px; text-align: center;border-radius: 8px;border: 2px solid #ddd;outline: 0;margin-right:400px; display:inline" role="search">
+        </div>
+        <div class="uk-navbar-right">
+            <a class="uk-navbar-toggle" uk-search-icon href="#"></a>
+            <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
+                <form class="uk-search uk-search-navbar uk-width-1-1" action="{% url 'findProfile' %}" method="post">
                     {% csrf_token %}
-                    <input type="text" name="images" placeholder="Search" style="border:none; padding:10px; background-color:inherit">
+                    <input class="uk-search-input" name="images" type="search" placeholder="Search..." autofocus>
                 </form>
-                {% if user.is_authenticated %}
-                <div class="iconns" style="font-size:40px; display:inline">
-                    <a href="{% url 'post'  %}">
-                        <i class="material-icons" style="font-size:40px">add</i>
-                    </a>
-                    <a href="{% url 'myProfile' %}">
-                        <i class="material-icons" style="font-size:40px">perm_identity</i>
-                    </a>
-                    <a href="/logout">
-                        <i class="material-icons" style="font-size:40px">lock_open</i>
-                    </a>
+            </div>
+            {% if user.is_authenticated %}
+            <ul class="uk-iconnav ">
+                <li>
+                    <a href="{% url 'post'  %}" uk-icon="icon: cloud-upload "></a>
+                </li>
+                <li>
+                    <a href="{% url 'myProfile' %}" uk-icon="icon: user"></a>
+                </li>
+                <li>
+                    <a href="/logout" uk-icon="icon: sign-out"></a>
+                </li>
             </ul>
             {% else %}
-            <li>
-                <a href="/accounts/login"><i class="material-icons" style="font-size:40px">lock_outline</i></a>
-            </li>
-
+            <a href="#" uk-icon="icon: sign-in"></a>
             {% endif %}
-
-            </div>
-            </ul>
         </div>
-        <!--/.container-->
-
     </nav>
+
     <!--/.navbar-->
 </body>
 

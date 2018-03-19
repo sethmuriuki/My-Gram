@@ -1,21 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Profile(models.Model):
     profile_photo = models.ImageField(upload_to = 'profiles/', null=True)
     user_bio = models.TextField()
     user = models.ForeignKey(User)
-    last_update = models.DateTimeField(auto_now_add=True, null=True)
-
-    class Meta:
-        ordering =['-last_update']
-
-    def __str__(self):
-        return self.user.username
 
     def save_profile(self):
         self.save()
+        
+    def __str__(self):
+        return self.user.username
+
+
+def Create_profile(sender, **kwargs):
+    if kwargs['created']:
+        user_profile = Profile.objects.create(user=kwargs['instance'])
+
+post_save.connect(Create_profile, sender=User)
+
 
 class Images(models.Model):
     image = models.ImageField(upload_to = 'images/', null = True)
@@ -53,3 +58,6 @@ class Comments(models.Model):
 
     class Meta:
        ordering = ['-time_comment']
+
+
+
