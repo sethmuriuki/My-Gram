@@ -3,9 +3,12 @@
 
     <div class="uk-container">
 
-
-
         <div class="uk-text-center uk-inline ">
+            <div class="profile">
+                <img src="{{user.profile.profile_photo.url}}" alt="" style="height:150px;width:150px; border-radius:50%; float:left; margin-right:50px">
+
+
+            </div>
             <p style="font-weight:bold; font-size:35px">{{user.username}}</p>
 
             <input type="text" name="" value="Edit Profile" class=" btn btn-default btn-block" style="display:inline-block; width:200px; font-size:20px">
@@ -18,11 +21,7 @@
 
 
 
-    <div class="profile">
-        <img src="{{user.profile.profile_photo.url}}" alt="" style="height:150px;width:150px; border-radius:50%; float:left; margin-right:50px">
 
-
-    </div>
 
 
     <div class="uk-container">

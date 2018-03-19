@@ -5,7 +5,7 @@
             <div class="uk-card-header">
                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                     <div class="uk-width-auto">
-                        <img class="uk-border-circle" width="40" height="40" src="{{user.profile.profile_photo.url}}">
+                        <img class="uk-border-circle" width="40" height="40" src="{{user.profile_photo.url}}">
                     </div>
                     <div class="uk-width-expand">
                         <h3 class="uk-card-title uk-margin-remove-bottom">{{image.user.username}}</h3>
@@ -22,9 +22,9 @@
             </div>
             <div class="uk-card-footer">
                 <p class="uk-text-meta uk-margin-remove-top">{{image.date_uploaded|timesince}} ago</p>
-                {% if image.likes %}
-                <a href="{% url 'singleImageLike' image.id%}" uk-icon="heart"></a>
-                {% else %} {% endif %}
+
+                <a href="{% url 'like' image.id%}" uk-icon="heart"></a>
+
 
                 <a href="{% url 'newComment' user.username %}" uk-icon="comment"></a>
 

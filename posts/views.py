@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from .forms import ImagePost, NewCommentForm, NewStatusForm
-from .models import Images, Profile, Comments
+from .models import Images, Profile, Comments,Like
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -55,12 +55,29 @@ def find_profile(request):
         message = 'You haven\'t searched for anything'
         return render(request, 'single_image.html')
 
-@login_required (login_url='/accounts/register/')
-def single_image_like(request, photo_id):
-    image = Images.objects.get(id=photo_id)
-    image.likes = image.likes + 1
-    image.save()
-    return redirect('myGram')
+
+@login_required(login_url='/accounts/login/')
+def like(request,image_id):
+    requested_image = Images.objects.get(id = image_id)
+    current_user = request.user
+    if_voted = Like.objects.filter(image = requested_image,user = current_user).count()
+    unlike_parameter = Like.objects.filter(image = requested_image,user = current_user)
+    
+    if if_voted==0:
+        requested_image.likes +=1
+        requested_image.save_image()
+        like = Like(user = current_user, image = requested_image )
+        like.save_like()
+        return redirect(timelines)
+
+    else:
+        requested_image.likes -=1
+        requested_image.save_image()
+        for single_unlike in unlike_parameter:
+            single_unlike.unlike()
+        return redirect(timelines)
+    
+    return render(request,'timeline.html')
 
 @login_required(login_url='/accounts/login/')
 def new_comment(request, username):
@@ -72,7 +89,7 @@ def new_comment(request, username):
             comment = form.save()
             comment.user = request.user
             comment.save()
-        return redirect('myGram')
+        return redirect(timelines)
     else:
         form = NewCommentForm()
     return render(request, 'new_comment.html', {"form": form})
@@ -87,6 +104,7 @@ def post(request):
         if form.is_valid():
             image = form.save(commit = False)
             image.user = current_user
+            image.likes +=0
             image.save() 
             return redirect( timelines)
     else:

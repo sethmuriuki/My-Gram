@@ -26,7 +26,7 @@ class Images(models.Model):
     image = models.ImageField(upload_to = 'images/', null = True)
     name = models.CharField(max_length=30)
     caption = models.TextField()
-    likes = models.IntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
     date_uploaded = models.DateTimeField(auto_now_add=True, null=True)
     user = models.ForeignKey(User, null=True)
     profile = models.ForeignKey(Profile, null=True)    
@@ -61,3 +61,31 @@ class Comments(models.Model):
 
 
 
+class Like(models.Model):
+    '''
+    Class defines the structure of a like on a an posted Image
+    '''
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null= True)
+
+    image = models.ForeignKey(Images,on_delete=models.CASCADE, null = True)
+
+    def __int__(self):
+        return self.user.username
+
+    def save_like(self):
+        self.save() 
+
+    def unlike(self):
+        self.delete()
+
+    def like(self):
+        self.likes_number = 2
+        self.save()
+
+    @classmethod
+    def get_likes(cls,image_id):
+        '''
+        Function that get likes belonging to a paticular posts
+        '''
+        likes = cls.objects.filter(image = image_id)
+        return likes 
