@@ -29,8 +29,9 @@
                 <a href="{% url 'newComment' user.username %}" uk-icon="comment"></a>
 
                 <a href="" uk-icon="bookmark" style="float:right;"></a>
-                <p>{{image.likes}} Likes</p><br> {% for comment in comments %}
-                <p><span>{{comment.user}}</span>{{comment.comment}}</p>
+                <p>{{image.likes}} Likes</p><br>
+                <hr> {% for comment in comments %}
+                <p><span>@{{comment.user}}: &nbsp;</span>{{comment.comment}}</p>
                 {% endfor %}
             </div>
         </div>
