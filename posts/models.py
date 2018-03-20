@@ -8,11 +8,23 @@ class Profile(models.Model):
     user_bio = models.TextField()
     user = models.ForeignKey(User)
 
-    def save_profile(self):
-        self.save()
-        
     def __str__(self):
         return self.user.username
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
+
+    @classmethod
+    def find_profile(cls,name):
+        found_profiles = cls.objects.filter(username__icontains = name).all()
+        return found_profiles
+
+
+        
 
 
 def Create_profile(sender, **kwargs):

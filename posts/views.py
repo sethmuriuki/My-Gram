@@ -47,14 +47,15 @@ def single_image(request, photo_id):
     return render(request, 'single_image.html', {'image':image})
 
 def find_profile(request):
-    if 'images' in request.GET and request.GET['images']:
-        search_term = request.GET.get('images')
-        searched_image = Images.search_by_user(search_term)
-        return render(request, 'user_profile.html', {'images':searched_image})
-    else:
-        message = 'You haven\'t searched for anything'
-        return render(request, 'single_image.html')
+    if 'name' in request.GET and request.GET["name"]: 
+        search_name = request.GET.get("name")
+        found_users = Profile.find_profile(search_name)
+        message =f"{search_name}" 
 
+        return render(request,'all-grams/search_results.html',{"message":message,"found_users":found_users})
+    else:
+        message = "Please enter a valid username"
+    return render(request,'all-grams/search.html',{"message":message})
 
 @login_required(login_url='/accounts/login/')
 def like(request,image_id):
